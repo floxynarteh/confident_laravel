@@ -25,6 +25,22 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        $this->registerPolicies();
+
+        Gate::define('upgrade', function ($user){
+            return !\App\Models\Order::where('user_id',$user->id)->where('product_id', \App\Models\Product::FULL)->exists();
+        });
+
+        Gate::define('access', function ($user, \App\Models\Lesson $lesson){
+            return $lesson->isFree() || $lesson->product_id <= optional($user->order)->product_id;
+        });
+
+        Gate::define('full-course', function ($user){
+            return \App\Models\Order::where('user_id',$user->id)->where('product_id', \App\Models\Product::FULL)->exists();
+        });
+
+        Gate::define('video-course', function ($user){
+            return \App\Models\Order::where('user_id',$user->id)->exists();
+        });
     }
 }
