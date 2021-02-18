@@ -18,7 +18,7 @@ class UsersController extends Controller
 
         }
 
-    public function update(UserUpdateRequest $requesr)
+    public function update(UserUpdateRequest $request)
         {
             $user  = $request->user();
             $user->name = $request->get('name');

@@ -24,6 +24,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
+        $schedule->command('videos:update')->cron('0 */2 * * *');
         // $schedule->command('inspire')->hourly();
     }
 

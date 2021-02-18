@@ -25,7 +25,7 @@ class VideosController extends Controller
 
     private function ensureUserCanViewVideo($user, $video)
      {
-        if($video->lesson->isFree() || $video->lesson->product_id <= $user->oder->product_id);
+        if($video->lesson->isFree() || $video->lesson->product_id <= $user->order->product_id);
         {
             return;
         }

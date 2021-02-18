@@ -6,10 +6,10 @@ use App\Models\Coupon;
 use App\Http\Requests\OrderRequest;
 use App\Models\Lesson;
 use App\Mail\OrderConfirmation;
-use App\Models\Product;
 use App\Models\Order;
-use App\Models\Video;
+use App\Models\Product;
 use App\Models\User;
+use App\Models\Video;
 use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -17,11 +17,8 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 use PDOException;
 use Stripe\Charge;
-use Stripw\Error\Card;
+use Stripe\Error\Card;
 use Stripe\Stripe;
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-
 
 class OrderController extends Controller
 {
@@ -36,61 +33,60 @@ class OrderController extends Controller
 
     public function store(OrderRequest $request)
     {
-         try{
-             $product = Product::findOrFail($request->get('product_id'));
+        try {
+            $product = Product::findOrFail($request->get('product_id'));
 
-             Stripe::setApiKey(config('services.stripe.secret'));
+            Stripe::setApiKey(config('services.stripe.secret'));
 
-             $order = new Order([
-                 'product_id' => $product->id,
-                 'total' => $product->price,
-                ]);
+            $order = new Order([
+                'product_id' => $product->id,
+                'total' => $product->price,
+            ]);
 
-              $this->applyCoupon($order);
+            $this->applyCoupon($order);
 
-              $charge = Charge::create([
-                  "amount" => $order->totalInCents(),
-                  "currency" => "usd",
-                  "source" => $request->get('stripeToken'),
-                  "description" => "Confident Laravel - " . $order->product->name,
-                  "receipt_email" => $request->get('stripeEmail')
-              ]);
+            $charge = Charge::create([
+                "amount" => $order->totalInCents(),
+                "currency" => "usd",
+                "source" => $request->get('stripeToken'),
+                "description" => "Confident Laravel - " . $order->product->name,
+                "receipt_email" => $request->get('stripeEmail')
+            ]);
 
-              $user = User::createFromPurchase($request->get('stripeEmail'), $charge->id);
+            $user = User::createFromPurchase($request->get('stripeEmail'), $charge->id);
 
-              $order->user_id = $user->id;
-              $order->stripe_id = $charge->id;
-              $order->save();
+            $order->user_id = $user->id;
+            $order->stripe_id = $charge->id;
+            $order->save();
 
-              event('order.placed', $order);
+            event('order.placed', $order);
 
-              Auth::login($user, true);
-              Mail::to($user->email)->send(new OrderConfirmation($order));
+            Auth::login($user, true);
+            Mail::to($user->email)->send(new OrderConfirmation($order));
+        } catch (Card $e) {
+            $data = $e->getJsonBody();
+            Log::error('Card failed: ', $data);
+            $template = 'partials.errors.charge_failed';
+            $data = $data['error'];
 
-            }catch (Card $e){
-             $data = $e->getJsonBody();
-             Log::error('Card failed: ', $data);
-             $template = 'partials.errors.charge_failed';
-             $data = $data['error'];
-
-             return view('errors.generic', compact('template', 'data'));
-            }
+            return view('errors.generic', compact('template', 'data'));
+        }
 
         return redirect('/users/edit');
-
     }
 
-    private function applyCoupon(Order $order){
-
-        if  (!Session::has('coupon_id')){
+    private function applyCoupon(Order $order)
+    {
+        if (!Session::has('coupon_id')) {
             return;
         }
 
         $coupon = Coupon::find(Session::get('coupon_id'));
-        if (!$coupon){
+        if (!$coupon) {
             return;
         }
-        if ($coupon->wasAlreadyUsed(Auth::user())){
+
+        if ($coupon->wasAlreadyUsed(Auth::user())) {
             return;
         }
 
@@ -98,5 +94,4 @@ class OrderController extends Controller
 
         $order->applyCoupon($coupon);
     }
-
 }

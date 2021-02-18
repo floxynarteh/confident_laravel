@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Video;
+use App\Models\Video;
 use Illuminate\Console\Command;
 use Vimeo\Laravel\Facades\Vimeo;
 
