@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Video;
+use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
-    public function index(\Illuminate\Http\Request $request)
+    public function index(Request $request)
     {
         $user = $request->user();
         if (!$user->last_viewed_video_id) {

@@ -43,8 +43,9 @@ Route::group(['middleware' => 'auth'], function () {
 
 Route::get('promotions/{code}', 'CouponController@show');
 
-//Route::get('dashboard',function(){ return 'Dashboard';});
+Route::get('dashboard',function(){ return 'Dashboard';});
 
+Route::get('videos','VideosController@index');
 Auth::routes();
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
