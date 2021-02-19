@@ -12,7 +12,7 @@
 
     <title>{{ $title ?? 'Confident Laravel - a step by step guide to testing Laravel applications' }}</title>
 
-    <link href="{{ mix('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
 @if (config('app.env') == 'production')
     <script>
@@ -114,7 +114,8 @@
 </div>
 
 
-<script src="/js/jquery-2.1.1.js"></script>
+{{-- <script src="/js/jquery-2.1.1.js"></script> --}}
+<script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
 <script src="https://player.vimeo.com/api/player.js"></script>
 <script>
     var iframe = $('#video-player');

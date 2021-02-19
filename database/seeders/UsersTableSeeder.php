@@ -22,10 +22,10 @@ class UsersTableSeeder extends Seeder
              'password' => Hash::make('mccreaja')
             ],
 
-            ['name' => 'Floxy Narteh',
-             'email' => 'floxy.narteh@thecobaltpartners.com',
-             'password' => Hash::make('dedicated')
-            ],
+            // ['name' => 'Floxy Narteh',
+            //  'email' => 'floxy.narteh@thecobaltpartners.com',
+            //  'password' => Hash::make('dedicated')
+            // ],
 
         ]);
     }

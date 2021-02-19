@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
-    public function index(Request $request)
+    public function index(\Illuminate\Http\Request $request)
     {
         $user = $request->user();
         if (!$user->last_viewed_video_id) {

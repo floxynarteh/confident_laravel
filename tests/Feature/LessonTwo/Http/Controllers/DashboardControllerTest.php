@@ -21,7 +21,7 @@ class DashboardControllerTest extends TestCase
     public function it_retreives_the_last_watched_video()
     {
 
-        $this->withoutExceptionHandling();
+        // $this->withoutExceptionHandling();
 
         $video = Video::factory()->create();
 
@@ -33,5 +33,40 @@ class DashboardControllerTest extends TestCase
         $response->assertStatus(200);
         $response->assertViewIs('videos.show');
         $response->assertViewHas('now_playing', $video);
+
+        // $this->assertDatabaseHas('users', [
+        //     'id' => $user->id,
+        //     'last_viewed_video_id' => $video->id
+        // ]);
+
     }
+
+
+    /**
+     *
+     * @test
+     */
+    public function it_defaults_last_video_for_a_new_user()
+    {
+
+        $video = Video::factory()->create();
+
+        $user = User::factory()->create();
+        $response = $this->actingAs($user)->get('/dashboard');
+
+        $response->assertStatus(200);
+        $response->assertViewIs('videos.show');
+        $response->assertViewHas('now_playing', $video);
+
+        // $this->assertDatabaseHas('users', [
+        //     'id' => $user->id,
+        //     'last_viewed_video_id' => $video->id
+        // ]);
+
+        $user->refresh();
+        $this->assertEquals($video->id, $user->last_viewed_video_id);
+
+    }
+
+
 }
