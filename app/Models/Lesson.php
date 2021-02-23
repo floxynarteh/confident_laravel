@@ -2,11 +2,15 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Scopes\OrdinalScope;
+use App\Models\Product;
 use Illuminate\Database\Eloquent\Model;
 
 class Lesson extends Model
 {
+    use HasFactory;
+
     protected static function boot()
     {
         parent::boot();

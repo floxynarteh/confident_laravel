@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "717cb7d539567ca6ab3401b2c70689c7",
+    "content-hash": "8a47f19113e1dc3498fde084059a21e2",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -2468,6 +2468,67 @@
                 }
             ],
             "time": "2020-08-18T17:17:46+00:00"
+        },
+        {
+            "name": "stripe/stripe-php",
+            "version": "v7.74.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/stripe/stripe-php.git",
+                "reference": "e45b12ff0b47746b646f51c8249210303fb076f5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/stripe/stripe-php/zipball/e45b12ff0b47746b646f51c8249210303fb076f5",
+                "reference": "e45b12ff0b47746b646f51c8249210303fb076f5",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "ext-json": "*",
+                "ext-mbstring": "*",
+                "php": ">=5.6.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "2.17.1",
+                "php-coveralls/php-coveralls": "^2.1",
+                "phpunit/phpunit": "^5.7",
+                "squizlabs/php_codesniffer": "^3.3",
+                "symfony/process": "~3.4"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Stripe\\": "lib/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Stripe and contributors",
+                    "homepage": "https://github.com/stripe/stripe-php/contributors"
+                }
+            ],
+            "description": "Stripe PHP Library",
+            "homepage": "https://stripe.com/",
+            "keywords": [
+                "api",
+                "payment processing",
+                "stripe"
+            ],
+            "support": {
+                "issues": "https://github.com/stripe/stripe-php/issues",
+                "source": "https://github.com/stripe/stripe-php/tree/v7.74.0"
+            },
+            "time": "2021-02-18T00:17:33+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -5417,16 +5478,16 @@
         },
         {
             "name": "jasonmccreary/laravel-test-assertions",
-            "version": "v1.0.0",
+            "version": "v1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jasonmccreary/laravel-test-assertions.git",
-                "reference": "3ead0117ce53d2b64ce6a6caa5db26f2188712ae"
+                "reference": "163c9df0a68a6fb7c39827292a315408bcea27cc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jasonmccreary/laravel-test-assertions/zipball/3ead0117ce53d2b64ce6a6caa5db26f2188712ae",
-                "reference": "3ead0117ce53d2b64ce6a6caa5db26f2188712ae",
+                "url": "https://api.github.com/repos/jasonmccreary/laravel-test-assertions/zipball/163c9df0a68a6fb7c39827292a315408bcea27cc",
+                "reference": "163c9df0a68a6fb7c39827292a315408bcea27cc",
                 "shasum": ""
             },
             "require": {
@@ -5435,6 +5496,13 @@
                 "phpunit/phpunit": "^7.5|^8.0|^9.0"
             },
             "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "JMac\\Testing\\AdditionalAssertionsServiceProvider"
+                    ]
+                }
+            },
             "autoload": {
                 "psr-4": {
                     "JMac\\Testing\\": "src/"
@@ -5453,9 +5521,9 @@
             "description": "A set of helpful assertions when testing Laravel applications.",
             "support": {
                 "issues": "https://github.com/jasonmccreary/laravel-test-assertions/issues",
-                "source": "https://github.com/jasonmccreary/laravel-test-assertions/tree/master"
+                "source": "https://github.com/jasonmccreary/laravel-test-assertions/tree/v1.1.0"
             },
-            "time": "2020-04-03T15:14:24+00:00"
+            "time": "2021-02-20T13:23:21+00:00"
         },
         {
             "name": "laravel/dusk",

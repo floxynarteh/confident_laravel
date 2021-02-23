@@ -10,6 +10,7 @@ use App\Models\Order;
 use App\Models\Product;
 use App\Models\User;
 use App\Models\Video;
+use App\Services\PaymentGateway ;
 use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -31,12 +32,11 @@ class OrderController extends Controller
         ]);
     }
 
-    public function store(OrderRequest $request)
+    public function store(OrderRequest $request, PaymentGateway $paymentGateway)
     {
         try {
             $product = Product::findOrFail($request->get('product_id'));
 
-            Stripe::setApiKey(config('services.stripe.secret'));
 
             $order = new Order([
                 'product_id' => $product->id,
@@ -45,18 +45,12 @@ class OrderController extends Controller
 
             $this->applyCoupon($order);
 
-            $charge = Charge::create([
-                "amount" => $order->totalInCents(),
-                "currency" => "usd",
-                "source" => $request->get('stripeToken'),
-                "description" => "Confident Laravel - " . $order->product->name,
-                "receipt_email" => $request->get('stripeEmail')
-            ]);
+            $charge_id= $paymentGateway->charge($request->get('stripeToken'),$order);
 
-            $user = User::createFromPurchase($request->get('stripeEmail'), $charge->id);
+            $user = User::createFromPurchase($request->get('stripeEmail'), $charge_id);
 
             $order->user_id = $user->id;
-            $order->stripe_id = $charge->id;
+            $order->stripe_id = $charge_id;
             $order->save();
 
             event('order.placed', $order);

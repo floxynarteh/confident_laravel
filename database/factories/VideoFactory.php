@@ -3,12 +3,16 @@
 namespace Database\Factories;
 
 use App\Models\Video;
+
+use App\Models\Lesson;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Faker\Generator as Faker;
 
 class VideoFactory extends Factory
 {
+
+    use HasFactory;
     /**
      * The name of the factory's corresponding model.
      *
@@ -29,7 +33,10 @@ class VideoFactory extends Factory
             'summary' => $this->faker->text,
             'vimeo_id' => $this->faker->md5,
             'ordinal' => $this->faker->randomNumber(),
-            'lesson_id' => $this->faker->randomNumber(),
+            'lesson_id' => function(){
+               return Lesson::factory()->create()->id;
+
+            }
 
 
         ];

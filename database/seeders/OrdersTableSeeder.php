@@ -17,11 +17,13 @@ class OrdersTableSeeder extends Seeder
         DB::table('orders')->delete();
         DB::table('orders')->insert([
             ['user_id' =>1,
+            'name'=> 'Jason McCreary',
             'product_id' => \App\Models\Product::FULL,
             'stripe_id' => 'initialjmaccount',
             'total' => 0],
 
             ['user_id' =>2,
+            'name' => 'floxy',
             'product_id' => \App\Models\Product::FULL,
             'stripe_id' => 'floxyaccount',
             'total' => 0]

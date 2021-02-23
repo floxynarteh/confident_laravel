@@ -5,7 +5,9 @@
         <div class="max-w-4xl sm:mx-auto px-8">
             <figure class="embed-container">
                 <iframe id="video-player" data-video-id="{{ $now_playing->id }}" src="https://player.vimeo.com/video/{{ $now_playing->vimeo_id }}" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+
             </figure>
+            {{ $now_playing->id }}
 
 
             <div class="lg:flex mt-8">

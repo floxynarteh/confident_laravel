@@ -3,6 +3,8 @@
 namespace Tests\Feature\LessonTwo\Http\Controllers;
 
 use App\Models\Coupon;
+use App\Models\Order;
+use App\Models\User;
 use Database\Factories\CouponFactory;
 // use Database\Factories\CouponFactory;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -68,9 +70,16 @@ class CouponControllerTest extends TestCase
      */
     public function it_does_not_store_a_previously_used_coupon(){
 
-        $this->markTestIncomplete();
+        // $this->markTestIncomplete();
+        $user = User::factory()->create();
+        $coupon = Coupon::factory()->create();
+        Order::factory()->create([
+            'user_id' => $user->id,
+            'coupon_id' => $coupon->id,
 
-        $response = $this->get('/promotions/previously-used-code');
+        ]);
+
+        $response = $this->actingAs($user)->get('/promotions/'. $coupon->code);
 
         $response->assertRedirect('/#buy-now');
         $response->assertSessionMissing('coupon_id');
