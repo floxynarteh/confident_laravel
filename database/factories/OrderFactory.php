@@ -35,7 +35,7 @@ class OrderFactory extends Factory
             'coupon_id' => function(){
                 return Coupon::factory()->create()->id;
             },
-            'total' => $this->faker->randomFloat(),
+            'total' => $this->faker->randomFloat(2,1,100),
         ];
     }
 }

@@ -19,10 +19,10 @@ class PaymentGateway{
         $charge = Charge::create([
             "amount" => $order->totalInCents(),
             "currency" => "usd",
-            "source" => $request->get('stripeToken'),
+            "source" => $token,
             "description" => "Confident Laravel - " . $order->product->name,
-            "receipt_email" => $request->get('stripeEmail')
+            "receipt_email" => request()->get('stripeEmail')
         ]);
-        return $charge;
+        return $charge->id;
     }
 }

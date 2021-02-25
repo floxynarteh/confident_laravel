@@ -1,7 +1,7 @@
 <?php
 
 namespace Tests\Feature\LessonTwo\Http\Controllers;
-
+use App\Models;
 use App\Models\Lesson;
 use App\Models\User;
 use App\Models\Video;
@@ -18,28 +18,28 @@ class VideoControllerTest extends TestCase
     use HasFactory;
     use  RefreshDatabase;
 
-    // /**
-    //  *
-    //  *
-    //  * @test
-    //  */
-    // public function show_sets_last_video_and_display_view()
-    // {
+    /**
+     *
+     *
+     * @test
+     */
+    public function show_sets_last_video_and_display_view()
+    {
 
 
-    //     $user = User::factory()->create();
-    //     $video = Video::factory()->create();
-    //     $response = $this->actingAs($user)->get(route('videos.show', $video->id));
+        $user = User::factory()->create();
+        $video = Video::factory()->create();
+        $response = $this->actingAs($user)->get(route('videos.show', $video->id));
 
-    //     $response->assertStatus(200);
-    //     $response->assertViewIs('videos.show');
-    //     $response->assertViewHas('now_playing', $video);
+        $response->assertStatus(200);
+        $response->assertViewIs('videos.show');
+        $response->assertViewHas('now_playing', $video);
 
 
-    //     $user->refresh();
-    //     $this->assertEquals($video->id, $user->last_viewed_video_id);
+        $user->refresh();
+        $this->assertEquals($video->id, $user->last_viewed_video_id);
 
-    // }
+    }
 
     /**
      *
@@ -52,24 +52,26 @@ class VideoControllerTest extends TestCase
         // $this->withoutExceptionHandling();
         $user = User::factory()->create();
 
-        $lesson = Lesson::factory()->create(
-           ['product_id' => Product:: FULL
-           ]);
+        // $lesson = Lesson::factory()->create(
+        //    ['product_id' => Product:: FULL]
+        // );
 
-        $video = Video::factory()->create(
-           [
-               'lesson_id' => $lesson->id
+        $lesson = Lesson::factory()->create([
+            'product_id' => Product::FULL
+        ]);
 
-           ]);
-        $order = Order::factory()->create(
-            [
-                'user_id' => $user->id,
-                'product_id' => Product::STARTER
-            ]);
+        $video = Video::factory()->create([
+            'lesson_id' => $lesson->id
+        ]);
+
+        $order = Order::factory()->create([
+            'user_id' => $user->id,
+            'product_id' => Product::STARTER
+        ]);
+
         $response = $this->actingAs($user)->get(route('videos.show', $video->id));
 
-        $response->assertForbidden();
-
+        $response->assertStatus(403);
 
     }
 }

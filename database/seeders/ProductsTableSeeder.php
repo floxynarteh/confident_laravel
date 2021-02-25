@@ -16,11 +16,13 @@ class ProductsTableSeeder extends Seeder
     {
         DB::table('products')->delete();
         DB::table('products')->insert([
-            ['name' => 'Starter',
+            [
+            'name' => 'Starter',
             'price' => 89,
             'ordinal' =>1],
 
-            ['name' => 'Master',
+            [
+            'name' => 'Master',
             'price' => 149,
             'ordinal' =>2],
         ]);

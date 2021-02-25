@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\PaymentGatewayChargeException;
 use App\Models\Coupon;
 use App\Http\Requests\OrderRequest;
 use App\Models\Lesson;
@@ -19,6 +20,8 @@ use Illuminate\Support\Facades\Session;
 use PDOException;
 use Stripe\Charge;
 use Stripe\Error\Card;
+use Stripe\Exception\CardException;
+// use Stripe\Exception;
 use Stripe\Stripe;
 
 class OrderController extends Controller
@@ -34,7 +37,7 @@ class OrderController extends Controller
 
     public function store(OrderRequest $request, PaymentGateway $paymentGateway)
     {
-        try {
+        try{
             $product = Product::findOrFail($request->get('product_id'));
 
 
@@ -57,8 +60,8 @@ class OrderController extends Controller
 
             Auth::login($user, true);
             Mail::to($user->email)->send(new OrderConfirmation($order));
-        } catch (Card $e) {
-            $data = $e->getJsonBody();
+        } catch (PaymentGatewayChargeException $e) {
+            $data = $e->getData();
             Log::error('Card failed: ', $data);
             $template = 'partials.errors.charge_failed';
             $data = $data['error'];

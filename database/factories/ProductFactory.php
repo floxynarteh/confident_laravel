@@ -30,4 +30,16 @@ class ProductFactory extends Factory
 
         ];
     }
+
+
+
 }
+// $model = Product::class;
+
+// $model->state(Product::class, 'starter', [
+//         'id' => Product::STARTER,
+//      ]);
+
+//      $model->state(Product::class, 'full', [
+//          'id' => Product::FULL,
+//      ]);
