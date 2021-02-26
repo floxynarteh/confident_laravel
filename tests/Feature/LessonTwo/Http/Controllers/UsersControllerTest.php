@@ -2,18 +2,21 @@
 
 namespace Tests\Feature\LessonTwo\Http\Controllers;
 
+use App\Http\Controllers\UsersController;
 use App\Http\Requests\UserUpdateRequest;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Hash;
 use JMac\Testing\Traits\HttpTestAssertions;
+use JMac\Testing\Traits\AdditionalAssertions;
+use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use Laravel\Dusk\Http\Controllers\UserController;
 use Tests\TestCase;
 
 class UsersControllerTest extends TestCase
 {
-     use WithFaker, RefreshDatabase;
+     use WithFaker, RefreshDatabase, AdditionalAssertions;
     /**
      *
      *
@@ -42,63 +45,67 @@ class UsersControllerTest extends TestCase
         $this->assertTrue(Hash::check($password, $user->password));
     }
 
-    /**
+
+     /**
      * @test
      */
+    public function update_uses_validation(){
+        $this->assertActionUsesFormRequest(
 
-    public function update_fails_for_invalid_name(){
+            UsersController::class,
+            'update',
+            UserUpdateRequest::class
 
-
-        $user = User::factory()->create();
-
-
-        $password = $this->faker->password(8);
-
-        $response = $this->from(route('user.edit'))
-             ->actingAs($user)
-             ->put('/users',[
-            'name' => null,
-            'password' => $password,
-            'password_confirmation' => $password,
-        ]);
-
-        $response->assertRedirect(route('user.edit'));
-        $response->assertSessionHasErrors('name');
-    }
-
-    /**
-     * @test
-     */
-
-    public function update_fails_for_invalid_password(){
-
-
-        $user = User::factory()->create();
-
-
-        $response = $this->from(route('user.edit'))
-             ->actingAs($user)
-             ->put('/users',[
-            'name' => $this->faker->name,
-            'password' => null,
-            'password_confirmation' => null,
-        ]);
-
-        $response->assertRedirect(route('user.edit'));
-        $response->assertSessionHasErrors('password');
+        );
     }
 
     // /**
     //  * @test
     //  */
 
-    // public function updates_uses_validation(){
+    // public function update_fails_for_invalid_name(){
 
-    //    $this->assertActionUsesFormRequest(
-    //        UserController::class,
-    //        'update',
-    //        UserUpdateRequest::class
 
-    //    );
+    //     $user = User::factory()->create();
+
+
+    //     $password = $this->faker->password(8);
+
+    //     $response = $this->from(route('user.edit'))
+    //          ->actingAs($user)
+    //          ->put('/users',[
+    //         'name' => null,
+    //         'password' => $password,
+    //         'password_confirmation' => $password,
+    //     ]);
+
+    //     $response->assertRedirect(route('user.edit'));
+    //     $response->assertSessionHasErrors('name');
     // }
+
+    // /**
+    //  * @test
+    //  */
+
+    // public function update_fails_for_invalid_password(){
+
+
+    //     $user = User::factory()->create();
+
+
+    //     $response = $this->from(route('user.edit'))
+    //          ->actingAs($user)
+    //          ->put('/users',[
+    //         'name' => $this->faker->name,
+    //         'password' => null,
+    //         'password_confirmation' => null,
+    //     ]);
+
+    //     $response->assertRedirect(route('user.edit'));
+    //     $response->assertSessionHasErrors('password');
+    // }
+
+   
+
+    
 }

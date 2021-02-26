@@ -21,7 +21,7 @@ class VideoControllerTest extends TestCase
     /**
      *
      *
-     * @test
+     * 
      */
     public function show_sets_last_video_and_display_view()
     {

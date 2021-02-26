@@ -16,39 +16,39 @@ class DashboardControllerTest extends TestCase
     use HasFactory;
     use RefreshDatabase;
 
-    // /**
-    //  *
-    //  * @test
-    //  */
-    // public function it_retreives_the_last_watched_video()
-    // {
+    /**
+     *
+     * @test
+     */
+    public function it_retreives_the_last_watched_video()
+    {
 
-    //     $this->withoutExceptionHandling();
+        $this->withoutExceptionHandling();
 
-    //     DB::statement('SET FOREIGN_KEY_CHECKS=0');
-    //     DB::table('users')->truncate();
-    //     DB::table('videos')->truncate();
+        DB::statement('SET FOREIGN_KEY_CHECKS=0');
+        DB::table('users')->truncate();
+        DB::table('videos')->truncate();
 
 
 
-    //     $video = Video::factory()->create();
+        $video = Video::factory()->create();
 
-    //     $user = User::factory()->create([
-    //         'last_viewed_video_id' => $video->id
-    //     ]);
+        $user = User::factory()->create([
+            'last_viewed_video_id' => $video->id
+        ]);
 
-    //     $response = $this->actingAs($user)->get('/dashboard');
+        $response = $this->actingAs($user)->get('/dashboard');
 
-    //     $response->assertStatus(200);
-    //     $response->assertViewIs('videos.show');
-    //     $response->assertViewHas('now_playing', $video);
+        $response->assertStatus(200);
+        $response->assertViewIs('videos.show');
+        $response->assertViewHas('now_playing', $video);
 
-    //     // $this->assertDatabaseHas('users', [
-    //     //     'id' => $user->id,
-    //     //     'last_viewed_video_id' => $video->id
-    //     // ]);
+        // $this->assertDatabaseHas('users', [
+        //     'id' => $user->id,
+        //     'last_viewed_video_id' => $video->id
+        // ]);
 
-    // }
+    }
 
 
     /**
@@ -59,14 +59,15 @@ class DashboardControllerTest extends TestCase
     {
 
 
-        DB::statement('SET FOREIGN_KEY_CHECKS=0');
-        DB::table('users')->truncate();
-        DB::table('videos')->truncate();
+        // DB::statement('SET FOREIGN_KEY_CHECKS=0');
+        // DB::table('users')->truncate();
+        // DB::table('videos')->truncate();
 
 
         $video = Video::factory()->create();
-
         $user = User::factory()->create();
+
+        
         $response = $this->actingAs($user)->get('/dashboard');
 
         $response->assertStatus(200);

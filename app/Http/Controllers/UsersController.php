@@ -20,7 +20,7 @@ class UsersController extends Controller
 
     public function update(UserUpdateRequest $request)
         {
-            $user  = $request->user();
+            $user = $request->user();
             $user->name = $request->get('name');
             $user->password = Hash::make($request->get('password'));
             $user->save();
