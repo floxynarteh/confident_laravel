@@ -5,6 +5,7 @@ namespace Database\Factories;
 use App\Models\Order;
 use App\Models\Coupon;
 use App\Models\User;
+use App\Models\Product;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -29,7 +30,9 @@ class OrderFactory extends Factory
             'user_id' => function(){
                 return User::factory()->create()->id;
             },
-            'product_id' => $this->faker->randomDigitNotNull,
+            'product_id' => function () {
+                return Product::factory()->state('starter')->create()->id;
+            },
 
             'stripe_id' => $this->faker->word,
             'coupon_id' => function(){

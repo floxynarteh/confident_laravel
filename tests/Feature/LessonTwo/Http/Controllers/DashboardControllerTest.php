@@ -23,11 +23,11 @@ class DashboardControllerTest extends TestCase
     public function it_retreives_the_last_watched_video()
     {
 
-        $this->withoutExceptionHandling();
+        // $this->withoutExceptionHandling();
 
-        DB::statement('SET FOREIGN_KEY_CHECKS=0');
-        DB::table('users')->truncate();
-        DB::table('videos')->truncate();
+        // DB::statement('SET FOREIGN_KEY_CHECKS=0');
+        // DB::table('users')->truncate();
+        // DB::table('videos')->truncate();
 
 
 
@@ -49,7 +49,7 @@ class DashboardControllerTest extends TestCase
         // ]);
 
     }
-
+     
 
     /**
      *
@@ -59,30 +59,29 @@ class DashboardControllerTest extends TestCase
     {
 
 
-        // DB::statement('SET FOREIGN_KEY_CHECKS=0');
-        // DB::table('users')->truncate();
-        // DB::table('videos')->truncate();
-
-
         $video = Video::factory()->create();
+
         $user = User::factory()->create();
 
-        
         $response = $this->actingAs($user)->get('/dashboard');
 
         $response->assertStatus(200);
         $response->assertViewIs('videos.show');
         $response->assertViewHas('now_playing', $video);
+       
 
-        // $this->assertDatabaseHas('users', [
-        //     'id' => $user->id,
-        //     'last_viewed_video_id' => $video->id
-        // ]);
+    //    $this->assertDatabaseHas('users', [
+    //        'id' => $user->id,
+    //        'last_viewed_video_id' =>$video->id
+    //    ]);
 
-        $user->refresh();
-        $this->assertEquals($video->id, $user->last_viewed_video_id);
+          $user->refresh();
+          $this->assertEquals($video->id, $user->last_viewed_video_id);
 
     }
+
+
+    
 
 
 }

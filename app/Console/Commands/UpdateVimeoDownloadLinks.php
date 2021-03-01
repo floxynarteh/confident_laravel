@@ -51,6 +51,7 @@ class UpdateVimeoDownloadLinks extends Command
 
             $download_links = collect($data['body']['download']);
 
+
             $hd = $download_links->where('quality', 'hd')->sortByDesc('width')->first();
             if ($hd) {
                 $video->vimeo_hd_download_url = $hd['link'];
