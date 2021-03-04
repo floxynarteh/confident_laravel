@@ -30,6 +30,8 @@ class OrderController extends Controller
     {
         return view('orders.index', [
             'products' => Product::paid(),
+            // 'lessons' => Lesson::where('product_id', '!=', Product::FULL)->orderBy(),
+            // 'videos' => Video::orderBy('ordinal', 'asc')->get()->groupBy('lesson_id'),
             'lessons' => Lesson::course(),
             'videos' => Video::all()->groupBy('lesson_id'),
         ]);
@@ -37,7 +39,7 @@ class OrderController extends Controller
 
     public function store(OrderRequest $request, PaymentGateway $paymentGateway)
     {
-        try{
+
             $product = Product::findOrFail($request->get('product_id'));
 
 
@@ -60,14 +62,7 @@ class OrderController extends Controller
 
             Auth::login($user, true);
             Mail::to($user->email)->send(new OrderConfirmation($order));
-        } catch (PaymentGatewayChargeException $e) {
-            $data = $e->getData();
-            Log::error('Card failed: ', $data);
-            $template = 'partials.errors.charge_failed';
-            $data = $data['error'];
 
-            return view('errors.generic', compact('template', 'data'));
-        }
 
         return redirect('/users/edit');
     }

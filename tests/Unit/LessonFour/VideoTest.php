@@ -17,7 +17,8 @@ class VideoTest extends TestCase
     {
 
         $video = Video::factory()->make();
-
+ 
+        
         //$video->id =null;
 
         $this->assertFalse($video->hasDownload());
@@ -56,13 +57,14 @@ class VideoTest extends TestCase
 
         $videos = Video::all();
 
-        // $this->assertSame(3, $videos->count());
+        
 
         $this->assertEquals([1,42,90], $videos->pluck('ordinal')->toArray());
 
+        // $this->assertSame(3, $videos->count());
         // $this->assertEquals(1, $videos[0]->ordinal);
         // $this->assertEquals(42, $videos[1]->ordinal);
         // $this->assertEquals(90, $videos[2]->ordinal);
         
     }
-}
+};

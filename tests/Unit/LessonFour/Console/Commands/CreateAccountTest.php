@@ -9,8 +9,8 @@ use App\Models\User;
 use App\Models\Order;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Mail;
+use Mockery\Generator\Parameter;
 use Tests\TestCase;
 
 class CreateAccountTest extends TestCase
@@ -26,22 +26,37 @@ class CreateAccountTest extends TestCase
 
 
         $email = $this->faker->safeEmail;
+        
         $transaction_id = $this->faker->md5;
 
 
         Mail::fake();
 
-        $result = $this->artisan('make:account', [
-            'email'=>$email,
-            'product_id'=>$product->id,
-            'transaction_id'=>$transaction_id
-        ])
-            ->assertExitCode(0)
-            ->run();
+
+        $result = $this->artisan('make:account',
+        [
+              "email" => $email,
+               "product_id" => $product->id,
+              "transaction_id" => $transaction_id,
+            //   "transaction_id" => $transaction_id
+        ]
+    ) ->assertExitCode(0)
+      ->run();
+    //   dd($result);
+    //  ->assertExitCode(0)
+    //   ->run();
 
        
 
-        $users =User::where('email', $email)->get();
+        // $result->assertExitCode(0);
+
+
+        
+        $users = User::where('email', $email)->get();
+
+        // dd($users);
+
+
 
         $this->assertSame(1, $users->count());
 

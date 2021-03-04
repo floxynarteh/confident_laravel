@@ -20,7 +20,7 @@ class CreateAccount extends Command
      *
      */
 
-    protected $signature = 'make:account {email: The email for the account} {product_id: The id of the package ordered} {transaction_id: Transaction id for payment}';
+    protected $signature = 'make:account {email : The email for the account} {product_id : The id of the package ordered} {transaction_id : Transaction id for payment}';
     /**
      * The console command Description.
      * @var string
@@ -44,11 +44,10 @@ class CreateAccount extends Command
     {
         $product =  Product::findOrFail($this->input->getArgument('product_id'));
 
-        $user = User::findOrCreate([
-            ['email' => $this->input->getArgument('email')],
-            [
-              'password' => Hash::make('gitstarted')
-            ]
+        $user = User::firstOrCreate([
+            'email' => $this->input->getArgument('email'),
+            'password' => Hash::make('gitstarted'),
+            // 'user_id' => '12345',
         ]);
 
         $order = Order::create([

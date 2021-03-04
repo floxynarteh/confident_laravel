@@ -51,7 +51,7 @@ class User extends Authenticatable
 
     public static function createFromPurchase($email, $stripe_id){
         return self::create([
-            'email' =>$email,
+            'email' => $email,
             'password' => Hash::make(md5($stripe_id))
         ]);
     }

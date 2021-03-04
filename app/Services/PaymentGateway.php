@@ -23,6 +23,6 @@ class PaymentGateway{
             "description" => "Confident Laravel - " . $order->product->name,
             "receipt_email" => request()->get('stripeEmail')
         ]);
-        return $charge->id;
+        return $charge;
     }
 }

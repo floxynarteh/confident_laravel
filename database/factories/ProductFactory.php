@@ -29,6 +29,7 @@ class ProductFactory extends Factory
             'ordinal' => $this->faker->randomDigitNotNull,
 
         ];
+
     }
 
 

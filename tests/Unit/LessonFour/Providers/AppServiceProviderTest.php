@@ -12,11 +12,14 @@ class AppServiceProviderTest extends TestCase
      *
      * @test
      */
-    public function it_binds_payment_gateway_as_a_singletons()
+    public function it_binds_payment_gateway_as_a_singleton()
     {
         $expected = resolve(PaymentGateway::class);
+
         
         $this->assertSame($expected, resolve(PaymentGateway::class));
+        
+        
     }
 }
  

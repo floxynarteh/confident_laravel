@@ -7,10 +7,13 @@ use App\Models\Video;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Tests\TestCase;
+
 
 class WatchesControllerTest extends TestCase
 {
+    use WithoutMiddleware;
     use RefreshDatabase;
     /**
      *
@@ -40,7 +43,7 @@ class WatchesControllerTest extends TestCase
 
 
         $response->assertStatus(204);
-
+    //    dd($response);
         //call back function.
         $event->assertDispatched('video.watched', function($event, $arguments) use($user,$video){
             $this->assertEquals([$user, $video->id], $arguments, 'The arguments passed to the [' . $event. '] event were unexpected');

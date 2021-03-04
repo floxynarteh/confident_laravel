@@ -24,5 +24,16 @@ class PaymentGatewayChargeException extends Exception
     }
 
 
+    public function render(){
+
+        $data = $this->getData();
+        Log::error('Card failed: ', $data);
+        $template = 'partials.errors.charge_failed';
+        $data = $data['error'];
+
+        return view('errors.generic', compact('template', 'data'));
+    }
+
+
 
 }

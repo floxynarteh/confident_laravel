@@ -31,7 +31,8 @@ class OrderFactory extends Factory
                 return User::factory()->create()->id;
             },
             'product_id' => function () {
-                return Product::factory()->state('starter')->create()->id;
+                return Product::factory()->create()->id;
+                // ->state('starter')
             },
 
             'stripe_id' => $this->faker->word,

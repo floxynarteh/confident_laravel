@@ -12,11 +12,13 @@ use JMac\Testing\Traits\HttpTestAssertions;
 use JMac\Testing\Traits\AdditionalAssertions;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use Laravel\Dusk\Http\Controllers\UserController;
+use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Tests\TestCase;
 
 class UsersControllerTest extends TestCase
 {
      use WithFaker, RefreshDatabase, AdditionalAssertions;
+     use WithoutMiddleware;
     /**
      *
      *
