@@ -21,6 +21,9 @@ class WatchesController extends Controller
      // failure [-1]
         event('video.watched', [$request->user(),$request->get('video_id')]);
 
-        return response(null, 204);
+        // return response(null, 204);
+
+        //improved
+        return response()->noContent();
     }
 }

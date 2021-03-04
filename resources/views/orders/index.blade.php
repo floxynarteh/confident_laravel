@@ -211,7 +211,7 @@
                         @endif
                     </ul>
 
-                    @if (hasCoupon())
+                    @if ($product)
                     <a data-purchase="true" data-name="{{ $product->name }}" data-amount="{{ coupon()->priceInCents($product) }}" data-product-id="{{ $product->id }}" class="mb-4 block w-full rounded-lg p-6 text-center no-underline text-white font-bold text-normal uppercase tracking-wide {{ $product->id === 3 ? 'bg-yellow-500 hover:bg-yellow-600' : 'bg-gray-500 hover:bg-gray-600'}}">
                         <span class="inline-block border-r pr-2 mr-2">Buy Now</span> <s class="opacity-75 font-semibold text-sm">${{ intval($product->price) }}</s> ${{ intval(coupon()->price($product)) }}
                     </a>
