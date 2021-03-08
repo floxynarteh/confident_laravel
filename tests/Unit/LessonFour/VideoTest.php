@@ -12,29 +12,34 @@ class VideoTest extends TestCase
     /**
      *
      * @test
+     * @dataProvider  hasDownloadDataProvider
      */
-    public function hasDownload()
+    public function hasDownload($id, $expected)
     {
 
         $video = Video::factory()->make();
+
+        $video->id =$id;
+
+        $this->assertSame($expected, $video->hasDownload());
  
         
         //$video->id =null;
 
-        $this->assertFalse($video->hasDownload());
+        // $this->assertFalse($video->hasDownload());
 
         
-        $video->id = 1;
+        // $video->id = 1;
 
-        $this->assertFalse($video->hasDownload());
+        // $this->assertFalse($video->hasDownload());
 
-        $video->id = 8;
+        // $video->id = 8;
 
-        $this->assertTrue($video->hasDownload());
+        // $this->assertTrue($video->hasDownload());
 
-        $video->id = 9;
+        // $video->id = 9;
 
-        $this->assertTrue($video->hasDownload());
+        // $this->assertTrue($video->hasDownload());
     }
 
 
@@ -66,5 +71,17 @@ class VideoTest extends TestCase
         // $this->assertEquals(42, $videos[1]->ordinal);
         // $this->assertEquals(90, $videos[2]->ordinal);
         
+    }
+
+ // helps to test methods that receive different parameters
+    public function hasDownloadDataProvider(){
+        return[
+            [null, false],
+            [0, false],
+            [8, true],
+            [9, true],
+
+
+        ];
     }
 };

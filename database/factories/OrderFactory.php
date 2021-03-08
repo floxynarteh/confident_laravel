@@ -33,6 +33,7 @@ class OrderFactory extends Factory
             'product_id' => function () {
                 return Product::factory()->create()->id;
                 // ->state('starter')
+
             },
 
             'stripe_id' => $this->faker->word,

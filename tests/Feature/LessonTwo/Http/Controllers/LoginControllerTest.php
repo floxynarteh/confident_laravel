@@ -10,7 +10,7 @@ use Illuminate\Foundation\Testing\WithoutMiddleware;
 
 class LoginControllerTest extends TestCase
 {
-    use WithoutMiddleware;
+    // use WithoutMiddleware;
     use RefreshDatabase;
     /**
      *

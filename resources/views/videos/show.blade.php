@@ -7,7 +7,7 @@
                 <iframe id="video-player" data-video-id="{{ $now_playing->id }}" src="https://player.vimeo.com/video/{{ $now_playing->vimeo_id }}" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 
             </figure>
-            {{ $now_playing->id }}
+            {{-- {{ $now_playing->id }} --}}
 
 
             <div class="lg:flex mt-8">

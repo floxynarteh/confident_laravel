@@ -36,7 +36,7 @@ class OrderControllerTest extends TestCase
 
     public function index_displays_discounted_price_for_coupon(){
         
-       $this->withoutExceptionHandling();
+    //  $this->withoutExceptionHandling();
        $coupon = Coupon::factory()->create([
            'percent_off' => 10
        ]);
@@ -57,11 +57,12 @@ class OrderControllerTest extends TestCase
        $response->assertViewIs('orders.index');
        $response->assertViewHasAll(['products','lessons','videos']);
 
-    //    $response->assertSeeText('Buy Now $10 $9');
-    //    $response->assertSeeText('Buy Now $20 $18');
+       $response->assertSeeText('Buy Now $10 $9');
+       $response->assertSeeText('Buy Now $20 $18');
 
-       $response->assertSee('Buy Now </span> <s class="opacity-75 font-semibold text-sm">$10</s> $9');
-       $response->assertSee('Buy Now </span> <s class="opacity-75 font-semibold text-sm">$20</s> $18');
+        // $response->assertSee('Buy Now</span> <s class="opacity-75 font-semibold text-sm">$10</s> $9', false);
+        // $response->assertSee('Buy Now</span> <s class="opacity-75 font-semibold text-sm">$20</s> $18', false);
+           
          
 
      

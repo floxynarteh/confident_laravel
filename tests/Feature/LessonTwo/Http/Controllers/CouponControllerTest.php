@@ -54,12 +54,10 @@ class CouponControllerTest extends TestCase
 
     public function it_does_not_store_an_expired_coupon_(){
 
-        $coupon = Coupon::factory()->create([
-            'expired_at' => now(),
-        ]);
-
+        $coupon = Coupon::factory()->expired_coupon()->create();
+        
         $response = $this->get('/promotions/' . $coupon->id);
-
+        
         $response->assertRedirect('/#buy-now');
         $response->assertSessionMissing('coupon_id');
 

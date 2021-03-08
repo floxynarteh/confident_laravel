@@ -49,12 +49,10 @@ class VideoControllerTest extends TestCase
     public function show_returns_403_when_user_does_not_have_access()
     {
 
-        // $this->withoutExceptionHandling();
+        $this->withoutExceptionHandling();
         $user = User::factory()->create();
 
-        // $lesson = Lesson::factory()->create(
-        //    ['product_id' => Product:: FULL]
-        // );
+        
 
         $lesson = Lesson::factory()->create([
             'product_id' => Product::FULL
@@ -71,7 +69,7 @@ class VideoControllerTest extends TestCase
 
         $response = $this->actingAs($user)->get(route('videos.show', $video->id));
 
-        $response->assertStatus(403);
-
+        $response->assertForbidden();
+      
     }
 }

@@ -33,7 +33,7 @@ class Product extends Model
              ->get();
     }
 
-    public function priceIncent(){
+    public function priceInCents(){
         return $this->price * 100;
     }
 }

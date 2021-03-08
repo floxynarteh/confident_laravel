@@ -8,7 +8,8 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class CouponFactory extends Factory
-{ use HasFactory;
+{
+    use HasFactory;
     /**
      * The name of the factory's corresponding model.
      *
@@ -24,9 +25,21 @@ class CouponFactory extends Factory
     public function definition()
     {
         return [
-            'code'=> $this->faker->md5,
-            'percent_off' => $this->faker->numberBetween(1,100),
+            'code' => $this->faker->md5,
+            'percent_off' => $this->faker->numberBetween(1, 100),
             'expired_at' => null,
         ];
+    }
+
+
+
+
+    public function expired_coupon()
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'expired_at' => now(),
+            ];
+        });
     }
 }
