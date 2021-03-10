@@ -27,7 +27,7 @@ class UsersControllerTest extends TestCase
     public function update_saves_data_and_redirects_to_dashboard()
     {
 
-        // $this->withoutExceptionHandling();
+       
 
         $user = User::factory()->create();
 
@@ -61,51 +61,51 @@ class UsersControllerTest extends TestCase
         );
     }
 
-    // /**
-    //  * @test
-    //  */
+    /**
+     * @test
+     */
 
-    // public function update_fails_for_invalid_name(){
-
-
-    //     $user = User::factory()->create();
+    public function update_fails_for_invalid_name(){
 
 
-    //     $password = $this->faker->password(8);
-
-    //     $response = $this->from(route('user.edit'))
-    //          ->actingAs($user)
-    //          ->put('/users',[
-    //         'name' => null,
-    //         'password' => $password,
-    //         'password_confirmation' => $password,
-    //     ]);
-
-    //     $response->assertRedirect(route('user.edit'));
-    //     $response->assertSessionHasErrors('name');
-    // }
-
-    // /**
-    //  * @test
-    //  */
-
-    // public function update_fails_for_invalid_password(){
+        $user = User::factory()->create();
 
 
-    //     $user = User::factory()->create();
+        $password = $this->faker->password(8);
+
+        $response = $this->from(route('user.edit'))
+             ->actingAs($user)
+             ->put('/users',[
+            'name' => null,
+            'password' => $password,
+            'password_confirmation' => $password,
+        ]);
+
+        $response->assertRedirect(route('user.edit'));
+        $response->assertSessionHasErrors('name');
+    }
+
+    /**
+     * @test
+     */
+
+    public function update_fails_for_invalid_password(){
 
 
-    //     $response = $this->from(route('user.edit'))
-    //          ->actingAs($user)
-    //          ->put('/users',[
-    //         'name' => $this->faker->name,
-    //         'password' => null,
-    //         'password_confirmation' => null,
-    //     ]);
+        $user = User::factory()->create();
 
-    //     $response->assertRedirect(route('user.edit'));
-    //     $response->assertSessionHasErrors('password');
-    // }
+
+        $response = $this->from(route('user.edit'))
+             ->actingAs($user)
+             ->put('/users',[
+            'name' => $this->faker->name,
+            'password' => null,
+            'password_confirmation' => null,
+        ]);
+
+        $response->assertRedirect(route('user.edit'));
+        $response->assertSessionHasErrors('password');
+    }
 
    
 

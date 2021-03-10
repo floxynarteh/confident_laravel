@@ -24,7 +24,6 @@ class CouponControllerTest extends TestCase
     public function it_stores_coupon_and_redirects()
     {
 
-        // $this->withoutExceptionHandling();
         $coupon = Coupon::factory()->create();
         $response = $this->get('/promotions/'. $coupon->code);
 
@@ -68,7 +67,6 @@ class CouponControllerTest extends TestCase
      */
     public function it_does_not_store_a_previously_used_coupon(){
 
-        // $this->markTestIncomplete();
         $user = User::factory()->create();
         $coupon = Coupon::factory()->create();
         Order::factory()->create([

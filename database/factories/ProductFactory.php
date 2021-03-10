@@ -32,23 +32,24 @@ class ProductFactory extends Factory
 
     }
 
-    // public function starter()
-    // {
-    //     return $this->state(function (array $attributes) {
-    //         return [
-    //             'id' => Product::STARTER,
-    //         ];
-    //     });
-    // }
+    public function starter()
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'id' => Product::STARTER,
+                // 'id' => Product::FULL,
+            ];
+        });
+    }
 
-    // public function master()
-    // {
-    //     return $this->state(function (array $attributes) {
-    //         return [
-    //             'id' => Product::FULL,
-    //         ];
-    //     });
-    // }
+    public function master()
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'id' => Product::FULL,
+            ];
+        });
+    }
 
 
 

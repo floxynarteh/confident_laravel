@@ -25,7 +25,7 @@ class VideoDashboardNavigationTest extends DuskTestCase
      */
     public function it_displays_course_navigations_correctly()
     {
-        // $this->withoutExceptionHandling();
+       
         $this->browse(function (Browser $browser) {
             $order = Order::factory()->create();
 

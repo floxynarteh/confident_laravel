@@ -14,7 +14,10 @@ class VideosController extends Controller
         $user = $request->user();
 
 
-        $this->ensureUserCanViewVideo($user, $now_playing);
+        $userCanViewVideo = $now_playing->lesson->isFree()
+           || $now_playing->lesson->product_id <= $user->order->product_id;
+
+           abort_if(!$userCanViewVideo, 403);
 
         $user->last_viewed_video_id = $id;
         $user->save();
@@ -23,16 +26,7 @@ class VideosController extends Controller
 
     }
 
-    private function ensureUserCanViewVideo($user, $video)
-     {
-        if($video->lesson->isFree() || $video->lesson->product_id <= $user->order->product_id);
-        {
-            return;
-        }
 
-        abort(403);
-
-    }
 
 
 }

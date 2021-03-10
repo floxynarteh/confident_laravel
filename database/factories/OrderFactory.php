@@ -27,12 +27,13 @@ class OrderFactory extends Factory
     public function definition()
     {
         return [
+            //closure
             'user_id' => function(){
                 return User::factory()->create()->id;
             },
             'product_id' => function () {
-                return Product::factory()->create()->id;
-                // ->state('starter')
+                return Product::factory()->starter()->create()->id;
+
 
             },
 

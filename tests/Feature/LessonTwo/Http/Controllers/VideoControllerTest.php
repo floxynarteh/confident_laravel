@@ -49,11 +49,10 @@ class VideoControllerTest extends TestCase
     public function show_returns_403_when_user_does_not_have_access()
     {
 
-        $this->withoutExceptionHandling();
+        
         $user = User::factory()->create();
 
         
-
         $lesson = Lesson::factory()->create([
             'product_id' => Product::FULL
         ]);
@@ -72,4 +71,18 @@ class VideoControllerTest extends TestCase
         $response->assertForbidden();
       
     }
+
+    // /**
+    //  * @test
+    //  */
+
+    //  public function it_demos_duplicate_relationships(){
+
+    //     $order = Order::factory()->create([
+            
+    //     'product_id' => Product::factory()->create()->id
+    //     ]);
+
+    //     dd(Product::all()->count());
+    //  }
 }
